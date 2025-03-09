@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}">
+<head th:replace="fragments/head :: head(~{})"> </head>
+
+<body>
+<main>
+<h1>Lista de Vendas</h1>
+  <div style="display: flex; justify-content: space-between;">
+    <form th:action="@{/vendas/procurar}" method="get" style="margin-right: 20px;">
+      <input type="text" name="nomeCliente" placeholder="Buscar por nome do cliente" th:value="${nomeCliente}">
+      <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <form th:action="@{/vendas/data}" method="get">
+      <input type="date" name="dataInicio" placeholder="Data de início" th:value="${dataInicio}">
+      <input type="date" name="dataFim" placeholder="Data de fim" th:value="${dataFim}">
+      <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+  </div>
+
+<table class="table table-striped-columns" border="1">
+  <thead>
+  <tr>
+    <th scope="row">Id</th>
+    <th scope="row">Cliente</th>
+    <th scope="row">Data</th>
+    <th scope="row">Valor</th>
+    <th scope="row" colspan="1">Mais</th>
+  </tr>
+
+  </thead>
+  <tr th:each="v : ${venda}">
+    <th scope="row" th:text="${v.id}"> </th>
+    <td th:text="${v.pessoa.getNome()}"> </td>
+    <td th:text="${#temporals.format(v.data, 'dd/MM/yyyy')}"> </td>
+    <td th:text="${v.total()}"> </td>
+    <td> <a th:href="@{/vendas/detalhes/{id}(id=${v.id})}">Detalhar</a> </td>
+  </tr>
+</table>
+</main>
+</body>
+</html>

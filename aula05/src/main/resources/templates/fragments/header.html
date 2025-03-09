@@ -1,0 +1,40 @@
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <!-- Toggler para dispositivos móveis -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Conteúdo do Navbar -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/vendas/list}">Vendas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/pessoa/list}">Pessoas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/produto/list}">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/produto/comprar}">Comprar</a>
+                    </li>
+                </ul>
+
+                <!-- Nome do Usuário (aparece somente se o usuário estiver autenticado) -->
+                <div class="d-flex align-items-center ms-4 my-2 my-lg-0">
+                    <span th:if="${username}" th:text="${username}"></span>
+                </div>
+
+                <!-- Botão de Logout -->
+                <div class="ms-4 my-2 my-lg-0">
+                    <form th:action="@{/logout}" method="POST">
+                        <button class="btn btn-outline-danger" type="submit">Sair</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

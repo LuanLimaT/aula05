@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::head}, ~{::main})}">
+<head th:replace="fragments/head :: head(~{})"></head>
+<body>
+<main class="container mt-5">
+    <h1 class="mb-4" th:text="${pessoa.id == null ? 'Cadastrar Pessoa Jurídica' : 'Atualizar Pessoa Jurídica'}"></h1>
+    <form th:object="${pessoa}"
+          th:action="@{${pessoa.id == null ? '/pessoa/save/juridica' : '/pessoa/update/juridica'}}"
+          method="post">
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label for="nome">Nome completo:</label>
+                <input type="text" id="nome" name="nome" class="form-control" th:value="${pessoa.nome}" />
+                <div th:if="${#fields.hasErrors('nome')}" class="text-danger">
+                    <p th:each="error : ${#fields.errors('nome')}" th:text="${error}"></p>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" name="telefone" class="form-control" th:value="${pessoa.telefone}" />
+                <div th:if="${#fields.hasErrors('telefone')}" class="text-danger">
+                    <p th:each="error : ${#fields.errors('telefone')}" th:text="${error}"></p>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" id="cnpj" name="cnpj" class="form-control" th:value="${pessoa.cnpj}" />
+                <div th:if="${#fields.hasErrors('cnpj')}" class="text-danger">
+                    <p th:each="error : ${#fields.errors('cnpj')}" th:text="${error}"></p>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="id" th:value="${pessoa.id}"/>
+
+        <button type="submit" class="btn btn-primary">
+            <span th:text="${pessoa.id == null ? 'Cadastrar' : 'Atualizar'}"></span>
+        </button>
+        <a href="#" onclick="window.history.back();" class="btn btn-secondary">Cancelar</a>
+    </form>
+</main>
+</body>
+</html>
